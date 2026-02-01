@@ -3,4 +3,9 @@
 
 # how to use
 ```bash
-git clone 
+git clone https://github.com/swk3087/school-calender-to-ics.git
+npm i
+node server.js
+```
+# 실행하가 전에...
+<open.neis.go.kr>에서 발급받은 open api 인증키를 set.json에 입력해주세요.
