@@ -8,4 +8,4 @@ npm i
 node server.js
 ```
 # 실행하가 전에...
-(open.neis.go.kr)에서 발급받은 open api 인증키를 set.json에 입력해주세요.
+[https://open.neis.go.kr](open.neis.go.kr)에서 발급받은 open api 인증키를 set.json에 입력해주세요.
