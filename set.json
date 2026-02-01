@@ -1,0 +1,8 @@
+{
+  "apiKey": "인증키",
+  "port": 3000,
+  "neis": {
+    "schoolInfoUrl": "https://open.neis.go.kr/hub/schoolInfo",
+    "scheduleUrl": "https://open.neis.go.kr/hub/SchoolSchedule"
+  }
+}
