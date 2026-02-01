@@ -1,0 +1,44 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>학사일정 ICS 생성</title><style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Apple SD Gothic Neo,Roboto,sans-serif;background:#f2f4f8}
+.container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.card{width:100%;max-width:420px;background:#fff;border-radius:20px;padding:28px;box-shadow:0 12px 32px rgba(0,0,0,.08)}
+h1{text-align:center;margin:0 0 28px;font-size:26px;font-weight:800}
+.field{margin-bottom:18px}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:8px;color:#333}
+input[type=text],select{width:100%;padding:14px 16px;border-radius:14px;border:1px solid #ddd;font-size:15px}
+button{width:100%;padding:16px;border-radius:16px;border:none;background:#4f46e5;color:#fff;font-size:16px;font-weight:700}
+.inline{display:flex;align-items:center;gap:10px}
+.footer{text-align:center;margin-top:24px;font-size:12px;color:#777}
+</style></head><body>
+<div class="container"><div class="card">
+<h1>학사일정 ICS 생성</h1>
+<div class="field"><label>학교 이름</label><input id="q" placeholder="학교 이름 입력"></div>
+<button onclick="search()">학교 검색</button>
+<div class="field"><label>학교 선택</label><select id="school"></select></div>
+<div class="field"><label>연도</label><input id="year" value="2025"></div>
+<div class="field inline"><input id="weekend" type="checkbox"><label>주말 일정 제외</label></div>
+<button onclick="download()">ICS 다운로드</button>
+<div class="footer">NEIS Open API 기반</div>
+</div></div>
+<script>
+async function search(){
+ const r=await fetch('/api/school/search?q='+encodeURIComponent(q.value))
+ const d=await r.json()
+ school.innerHTML=''
+ d.forEach(v=>{
+  const o=document.createElement('option')
+  o.value=v.id+'|'+v.edu
+  o.textContent=v.name
+  school.appendChild(o)
+ })
+}
+function download(){
+ if(!school.value)return
+ const [id,edu]=school.value.split('|')
+ const p=new URLSearchParams({schoolId:id,edu,year:year.value})
+ if(weekend.checked)p.set('excludeWeekend',1)
+ location.href='/api/ics?'+p
+}
+</script>
+</body></html>
